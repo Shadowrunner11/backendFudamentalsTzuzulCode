@@ -5,6 +5,10 @@ import userController from '../controllers/user.controller';
 import { jwtCreate } from '../utils/jwtCreate';
 const userApp = Router();
 
+userApp.options('/login', (_, res) => { res.sendStatus(200); });
+
+userApp.options('/register', (_, res) => { res.sendStatus(200); });
+
 //TODO crear flujo co codigos de respuesta apropiados, temporalmente se envia payload
 userApp.post('/login', async (req, res) => {
   const { email, password } = req.body;
