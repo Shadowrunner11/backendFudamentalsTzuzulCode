@@ -14,12 +14,13 @@ const corsOptions = {
   origin,
   optionsSuccessStatus: 200,
   preflightContinue: true,
-  allowedHeaders:'X-Requested-With,content-type'
+  allowedHeaders:'X-Requested-With,content-type',
+  credentials:true
 };
 
-server.use(cors(corsOptions));
 server.use(morgan('dev'));
 server.use(Express.json());
+server.use(cors(corsOptions));
 server.use('/api', mainRouter);
 
 
