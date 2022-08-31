@@ -56,7 +56,7 @@ userApp.post('/login', async (req, res) => {
 
   const token = jwtCreate(id, email);
 
-  res.sendStatus(200).json({ ...response, phpssid: token }); //para confundir a la gente :v
+  res.json({ ...response, phpssid: token }); //para confundir a la gente :v
 });
 
 userApp.post('/register', async (req, res) => {
@@ -71,7 +71,7 @@ userApp.post('/register', async (req, res) => {
     return res.json({ ...response });
 
   const token = jwtCreate(id, body.email);
-  res.sendStatus(200).json({ ...response, token });
+  res.json({ ...response, token });
 });
 
 export default userApp;
