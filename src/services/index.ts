@@ -13,7 +13,8 @@ const server = Express();
 const corsOptions = {
   origin,
   optionsSuccessStatus: 200,
-  preflightContinue: true
+  preflightContinue: true,
+  allowedHeaders:'X-Requested-With,content-type'
 };
 
 server.use(cors(corsOptions));
