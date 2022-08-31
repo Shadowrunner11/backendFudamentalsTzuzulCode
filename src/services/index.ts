@@ -12,7 +12,8 @@ const server = Express();
 
 const corsOptions = {
   origin,
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
+  preflightContinue: true
 };
 
 server.use(cors(corsOptions));
