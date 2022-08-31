@@ -1,7 +1,8 @@
 import 'dotenv/config';
 import { Router } from 'express';
-import jwt from 'jsonwebtoken';
+
 import userController from '../controllers/user.controller';
+import { jwtCreate } from '../utils/jwtCreate';
 const userApp = Router();
 
 //TODO crear flujo co codigos de respuesta apropiados, temporalmente se envia payload
@@ -14,18 +15,18 @@ userApp.post('/login', async (req, res) => {
   const { response, id } = await userController.login({ email, password });
 
   if (!response.succes)
-    return res.json(response);
+    return res.json({ ...response });
 
-  const { TOKEN_KEY = 'dev-secret-asdfghjkl' } = process.env;
-  const token = jwt.sign({ user_id: id, email }, TOKEN_KEY, { expiresIn: '2h' });
+  const token = jwtCreate(id, email);
 
-  res.json({ response, phpssid: token }); //para confundir a la gente :v
+  res.json({ ...response, phpssid: token }); //para confundir a la gente :v
 });
 
 userApp.post('/register', async (req, res) => {
   const { body } = req;
-  const response = await userController.register(body);
-  res.json(response);
+  const { response, id } = await userController.register(body);
+  const token = jwtCreate(id, body.email);
+  res.json({ ...response, token });
 });
 
 export default userApp;

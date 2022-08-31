@@ -3,9 +3,10 @@ import { User as UserType, Profile as ProfileType } from '../../prisma/generated
 import { compare, genSalt, hash } from 'bcryptjs';
 
 
-type RegisterInfo = Omit<UserType & ProfileType, 'id'>
+type RegisterInfo = Omit<UserType
+  & ProfileType, 'id' | 'salt' | 'createdAt' | 'lastTime'>
 
-type BasicConfigUser = Omit<UserType, 'id' | 'username' | 'salt'>
+type BasicConfigUser = Pick<UserType, 'email' | 'password'>
 
 
 class User {
@@ -44,7 +45,7 @@ class User {
       const salt = await genSalt(10);
       const hashedPassword = await hash(password, salt);
 
-      const { username: usernameResponse } = await client.user.create({
+      const { username: usernameResponse, id } = await client.user.create({
         data: {
           email,
           username,
@@ -60,7 +61,15 @@ class User {
           }
         }
       });
-      return { succes: true, usernameResponse };
+
+      return {
+        response: {
+          succes: true,
+          usernme: usernameResponse,
+          message: 'Creado con exito'
+        },
+        id
+      };
     } catch (e) {
       // eslint-disable-next-line no-console
       console.log('🚀 ~ file: user.controller.ts ~ line 35 ~ User ~ register ~ e', e);

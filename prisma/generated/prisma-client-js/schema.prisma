@@ -15,7 +15,7 @@ model User {
   username  String   @unique
   salt      String
   createdAt DateTime @default(now())
-  lastTime  DateTime 
+  lastTime  DateTime
   profile   Profile?
 }
 
