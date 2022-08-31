@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import loginApp from './login.routes';
+import userApp from './user.routes';
 
 const mainRouter = Router();
 
-mainRouter.use('/v1', loginApp);
+mainRouter.use('/v1', userApp);
 
 export default mainRouter;
