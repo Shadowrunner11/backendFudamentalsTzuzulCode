@@ -7,7 +7,7 @@ import mainRouter from '../routes';
 
 //TODO colocar todo esto de las envs en configuraciono un YML mejor
 // const { FRONT_END_URL: origin = /http:\/\/localhost:5173.*/ } = process.env;
-const origin = /https:\/\/shadowrunner11.github.io\/tzuzulCodeReact\.*/;
+const origin = /https:\/\/shadowrunner11.github.io\/tzuzulCodeReact.*/;
 const server = Express();
 
 const corsOptions = {
