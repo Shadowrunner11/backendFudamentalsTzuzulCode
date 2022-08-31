@@ -26,7 +26,7 @@ userApp.post('/login', async (req, res) => {
   const { email, password } = req.body;
   //TODO: pasar logica a un middleare, se ve horrible aqui
   if (!email || !password)
-    return res.json({ succes: false, message: 'credenciales invalidas' });
+    return res.sendStatus(200).json({ succes: false, message: 'credenciales invalidas' });
 
   const { response, id } = await userController.login({ email, password });
 
@@ -35,7 +35,7 @@ userApp.post('/login', async (req, res) => {
 
   const token = jwtCreate(id, email);
 
-  res.json({ ...response, phpssid: token }); //para confundir a la gente :v
+  res.sendStatus(200).json({ ...response, phpssid: token }); //para confundir a la gente :v
 });
 
 userApp.post('/register', async (req, res) => {
@@ -46,7 +46,7 @@ userApp.post('/register', async (req, res) => {
     return res.json({ ...response });
 
   const token = jwtCreate(id, body.email);
-  res.json({ ...response, token });
+  res.sendStatus(200).json({ ...response, token });
 });
 
 export default userApp;
