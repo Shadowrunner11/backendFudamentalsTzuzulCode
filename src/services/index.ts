@@ -20,7 +20,7 @@ const corsOptions = {
 
 server.use(morgan('dev'));
 server.use(Express.json());
-server.use(cors(corsOptions));
+// server.use(cors(corsOptions));
 server.use('/api', mainRouter);
 
 

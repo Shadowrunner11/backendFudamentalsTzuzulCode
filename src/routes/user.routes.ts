@@ -20,26 +20,30 @@ const corsOptions = {
   credentials: true
 };
 
-userApp.use(cors(corsOptions));
+/* userApp.use(cors(corsOptions)); */
 
 userApp.options('/login', (_, res) => {
-  /*  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  res.setHeader('Access-Control-Allow-Credentials', 'true'); */
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.sendStatus(200).json({ success: true });
 });
 
 userApp.options('/register', (_, res) => {
-  /* res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  res.setHeader('Access-Control-Allow-Credentials', 'true'); */
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.sendStatus(200).json({ succes: true });
 });
 
 //TODO crear flujo co codigos de respuesta apropiados, temporalmente se envia payload
 userApp.post('/login', async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
   const { email, password } = req.body;
   //TODO: pasar logica a un middleare, se ve horrible aqui
   if (!email || !password)
@@ -56,6 +60,10 @@ userApp.post('/login', async (req, res) => {
 });
 
 userApp.post('/register', async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
   const { body } = req;
   const { response, id } = await userController.register(body);
 
