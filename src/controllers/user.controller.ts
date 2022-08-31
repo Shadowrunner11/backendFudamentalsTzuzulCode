@@ -16,14 +16,14 @@ class User {
 
       const { id, username, password: hashed } = await client.user.update({
         where: { email },
-        data: { lastTimme: new Date() }
+        data: { lastTime: new Date() }
       });
 
       const isValid = await compare(password, hashed);
 
       return {
         response: {
-          succes: isValid,
+          success: isValid,
           message: isValid ? 'Bienvenido' : 'Credenciales incorrectas',
           username: isValid ? username : null
         },
@@ -31,7 +31,9 @@ class User {
       };
 
     } catch (e) {
-      return { response: { succes: false, message: 'Fallo la autentificacion' } };
+      // eslint-disable-next-line no-console
+      console.log('🚀 ~ file: user.controller.ts ~ line 34 ~ User ~ login ~ e', e);
+      return { response: { success: false, message: 'Fallo la autentificacion' } };
     } finally {
       await client.$disconnect();
     }
@@ -50,6 +52,7 @@ class User {
           email,
           username,
           salt,
+          lastTime: new Date(),
           password: hashedPassword,
           profile: {
             create: {
@@ -64,7 +67,7 @@ class User {
 
       return {
         response: {
-          succes: true,
+          success: true,
           usernme: usernameResponse,
           message: 'Creado con exito'
         },
@@ -73,7 +76,7 @@ class User {
     } catch (e) {
       // eslint-disable-next-line no-console
       console.log('🚀 ~ file: user.controller.ts ~ line 35 ~ User ~ register ~ e', e);
-      return { succes: false };
+      return { response: { success: false } };
     } finally {
       await client.$disconnect();
     }

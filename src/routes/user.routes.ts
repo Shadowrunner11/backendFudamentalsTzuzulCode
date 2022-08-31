@@ -14,7 +14,7 @@ userApp.post('/login', async (req, res) => {
 
   const { response, id } = await userController.login({ email, password });
 
-  if (!response.succes)
+  if (!response.success || !id)
     return res.json({ ...response });
 
   const token = jwtCreate(id, email);
@@ -25,6 +25,10 @@ userApp.post('/login', async (req, res) => {
 userApp.post('/register', async (req, res) => {
   const { body } = req;
   const { response, id } = await userController.register(body);
+
+  if (!response.success || !id)
+    return res.json({ ...response });
+
   const token = jwtCreate(id, body.email);
   res.json({ ...response, token });
 });
