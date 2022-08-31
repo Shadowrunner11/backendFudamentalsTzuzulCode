@@ -5,9 +5,21 @@ import userController from '../controllers/user.controller';
 import { jwtCreate } from '../utils/jwtCreate';
 const userApp = Router();
 
-userApp.options('/login', (_, res) => { res.sendStatus(200); });
+userApp.options('/login', (_, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.sendStatus(200);
+});
 
-userApp.options('/register', (_, res) => { res.sendStatus(200); });
+userApp.options('/register', (_, res) => { 
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.sendStatus(200); 
+});
 
 //TODO crear flujo co codigos de respuesta apropiados, temporalmente se envia payload
 userApp.post('/login', async (req, res) => {
